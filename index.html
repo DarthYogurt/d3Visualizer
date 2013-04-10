@@ -2,7 +2,7 @@
 
 <script type=text/javascript>
 
-var json = {"name":"zombie","children":[{"name":"itunes_481533529","size":"40.040","children":[{"name":"itunes_481533529"},{"name":"itunes_478628372"},{"name":"itunes_379388774"},{"name":"itunes_497631008"},{"name":"blackberry_94954"}]},{"name":"itunes_582668900","size":"32.393","children":[{"name":"itunes_582668900"},{"name":"blackberry_83860"},{"name":"facebook_47185319"},{"name":"itunes_543429306"},{"name":"blackberry_101182"}]},{"name":"itunes_478628372","size":"26.181","children":[{"name":"itunes_481533529"},{"name":"itunes_478628372"},{"name":"itunes_379388774"},{"name":"itunes_497631008"},{"name":"blackberry_94954"}]},{"name":"blackberry_83860","size":"25.232","children":[{"name":"blackberry_83860"},{"name":"itunes_582668900"},{"name":"itunes_439853515"},{"name":"facebook_47185319"},{"name":"blackberry_88704"}]},{"name":"itunes_379388774","size":"22.263","children":[{"name":"itunes_379388774"},{"name":"itunes_481533529"},{"name":"itunes_478628372"},{"name":"itunes_497631008"},{"name":"blackberry_94954"}]}]};
+var jsonDefault = {"name":"zombie","children":[{"name":"itunes_481533529","size":"40.040","children":[{"name":"itunes_481533529"},{"name":"itunes_478628372"},{"name":"itunes_379388774"},{"name":"itunes_497631008"},{"name":"blackberry_94954"}]},{"name":"itunes_582668900","size":"32.393","children":[{"name":"itunes_582668900"},{"name":"blackberry_83860"},{"name":"facebook_47185319"},{"name":"itunes_543429306"},{"name":"blackberry_101182"}]},{"name":"itunes_478628372","size":"26.181","children":[{"name":"itunes_481533529"},{"name":"itunes_478628372"},{"name":"itunes_379388774"},{"name":"itunes_497631008"},{"name":"blackberry_94954"}]},{"name":"blackberry_83860","size":"25.232","children":[{"name":"blackberry_83860"},{"name":"itunes_582668900"},{"name":"itunes_439853515"},{"name":"facebook_47185319"},{"name":"blackberry_88704"}]},{"name":"itunes_379388774","size":"22.263","children":[{"name":"itunes_379388774"},{"name":"itunes_481533529"},{"name":"itunes_478628372"},{"name":"itunes_497631008"},{"name":"blackberry_94954"}]}]};
 
 //var json = {"name":"zombie"};
 
@@ -20,6 +20,7 @@ var json = {"name":"zombie","children":[
 
 var json = {"name":"zombie"};
 var json2 = {"name":"Test", "children":[{"name":"Bazooka"}]};
+var json3 = {"name":"Test2", "children":[{"name":"Broadsword"}]};
 
 
 
@@ -127,7 +128,7 @@ function update(source) {
   var nodeEnter = node.enter().append("svg:g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-      .on("click", function(d) { toggle(d); update(d); });
+      .on("click", function(d) { addNodes(d.name,d); toggle(d); update(d); });
 
   nodeEnter.append("svg:circle")
       .attr("r", 1e-6)
@@ -138,8 +139,8 @@ function update(source) {
       .attr("dy", ".35em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.name; })
-      .style("fill-opacity", 1e-6)
-      .on("click", function(d) { addNodes(d); update(d); });
+      .style("fill-opacity", 1e-6);
+      //;
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
@@ -220,11 +221,22 @@ function toggle(d) {
 }
 
 
-function addNodes(d){
+function addNodes(query, d){
 
-  var newnodes = tree.nodes(json2.children);
+  console.log(query);
+
+  var jsonToPassIn = jsonDefault;
+
+  if (query === "zombie"){
+    jsonToPassIn = json2;
+  } else if (query == "Bazooka"){
+    jsonToPassIn = json3;
+  }
+
+  var newnodes = tree.nodes(jsonToPassIn.children);
   d.children = newnodes[0];
   toggle(d);
+
 }
 
 
