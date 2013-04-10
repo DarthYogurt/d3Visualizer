@@ -12,7 +12,7 @@ var json2 = {"name":"zombie","children":[
   {"name":"33333333333333","size":"40.040"},]};
 
 var json = {"name":"zombie","children":[
-  {"name":"AAAAAAAAAAAA","size":"40.040"},
+  {"name":"AAAAAAAAAAAA", "data":{"hello":"goodbye" }, "size":"40.040"},
   {"name":"BBBBBBBBBBBB","size":"40.040"},
   {"name":"CCCCCCCCCCCC","size":"40.040"},
   {"name":"DDDDDDDDDDDD","size":"40.040"},
@@ -202,7 +202,6 @@ function update(source) {
 
 function seeLog() {
   console.log(root);
-  console.log(d);
 }
 
 // Toggle children.
@@ -225,7 +224,7 @@ function addNodes(d){
   console.log(d.id);
   console.log(d);*/
   
-  var newnodes = tree.nodes(json2.children).reverse();
+  var newnodes = tree.nodes(json2.children);
   d.children = newnodes[0];
   toggle(d);
 
