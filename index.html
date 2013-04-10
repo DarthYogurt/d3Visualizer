@@ -18,7 +18,8 @@ var json = {"name":"zombie","children":[
   {"name":"DDDDDDDDDDDD","size":"40.040"},
   {"name":"EEEEEEEEEEEE","size":"40.040"}]};
 
-
+var json = {"name":"zombie"};
+var json2 = {"name":"Test", "children":[{"name":"Bazooka"}]};
 
 
 
@@ -220,14 +221,10 @@ function toggle(d) {
 
 
 function addNodes(d){
-/*  console.log(d.name);
-  console.log(d.id);
-  console.log(d);*/
-  
+
   var newnodes = tree.nodes(json2.children);
   d.children = newnodes[0];
   toggle(d);
-
 }
 
 
